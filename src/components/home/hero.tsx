@@ -25,13 +25,13 @@ export function Hero() {
           <p className="enter" style={step(0)}>
             <OpenBadge />
           </p>
-          <h1 id="hero-title" className="t-h1 enter mt-5 max-w-[12ch]" style={step(1)}>
-            Bikes and scooters on rent in Hanamkonda
+          <h1 id="hero-title" className="t-h1 enter mt-5 max-w-[13ch]" style={step(1)}>
+            Bike and scooty rental in Hanamkonda, Warangal
           </h1>
         </div>
         <div className="order-3 lg:order-none lg:col-span-6 lg:col-start-1 lg:row-start-2">
           <p className="t-lead enter max-w-[34ch] text-gravel lg:mt-6" style={step(2)}>
-            Scooters from {inr(minPrice)} a day with 125 km free, Royal Enfields from {inr(classic.pricePerDay)}. Pick
+            Scooties from {inr(minPrice)} a day with 125 km free, Royal Enfields from {inr(classic.pricePerDay)}. Pick
             yours up in Kishanpura from 6 in the morning.
           </p>
           <div className="enter mt-7 flex flex-wrap items-center gap-x-7 gap-y-4 lg:mt-9" style={step(3)}>

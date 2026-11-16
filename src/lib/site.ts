@@ -71,7 +71,7 @@ export function whatsappHref(text?: string) {
 export const nav = [
   { href: "/bikes", label: "Bikes" },
   { href: "/pricing", label: "Prices" },
-  { href: "/#rides", label: "Rides" },
+  { href: "/rides", label: "Rides" },
   { href: "/#visit", label: "Visit" },
   { href: "/faq", label: "FAQ" },
 ] as const;

@@ -1,7 +1,7 @@
 import { Hero } from "@/components/home/hero";
 import { RateBoard } from "@/components/home/rate-board";
 import { RideChapters } from "@/components/home/ride-chapters";
-import { BookSection, FinalCta, Reviews, VisitSection } from "@/components/home/sections";
+import { BookSection, FinalCta, HomeFaq, Reviews, VisitSection } from "@/components/home/sections";
 import { SectionHead } from "@/components/ui";
 
 /*
@@ -31,6 +31,7 @@ export default function HomePage() {
       <BookSection />
       <RideChapters />
       <Reviews />
+      <HomeFaq />
       <VisitSection />
       <FinalCta />
     </>

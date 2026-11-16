@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { business, fullAddress, telHref, whatsappHref } from "@/lib/site";
 import { bikes, bikeLabel } from "@/lib/fleet";
+import { landings } from "@/lib/landings";
 
 export function Footer() {
   const popular = bikes.filter((b) =>
@@ -10,7 +11,7 @@ export function Footer() {
   );
   return (
     <footer className="closing bg-kerb pb-28 pt-16 lg:pb-10 lg:pt-20">
-      <div className="wrap container-x grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
+      <div className="wrap container-x grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1fr]">
         <FooterCol title="Visit">
           <a href={business.mapsUrl} target="_blank" rel="noopener noreferrer" className="link-line w-fit py-2 text-[1.25rem] leading-snug">
             {fullAddress}
@@ -49,10 +50,18 @@ export function Footer() {
           <FooterLink href="/bikes">All 14 bikes</FooterLink>
         </FooterCol>
 
+        <FooterCol title="Rent in">
+          {landings.map((l) => (
+            <FooterLink key={l.slug} href={`/${l.slug}`}>
+              {l.short === "Royal Enfield" || l.short === "Scooty" ? `${l.short} rental` : l.short}
+            </FooterLink>
+          ))}
+        </FooterCol>
+
         <FooterCol title="Pages">
           <FooterLink href="/pricing">Prices and calculator</FooterLink>
           <FooterLink href="/#how-it-works">How booking works</FooterLink>
-          <FooterLink href="/#rides">Rides from Hanamkonda</FooterLink>
+          <FooterLink href="/rides">Rides from Hanamkonda</FooterLink>
           <FooterLink href="/faq">Questions</FooterLink>
           <FooterLink href="/contact">Contact</FooterLink>
           <FooterLink href="/terms">Rental terms</FooterLink>

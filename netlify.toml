@@ -12,10 +12,10 @@
   NODE_VERSION = "22"
   NEXT_TELEMETRY_DISABLED = "1"
 
-# A week's cache for the ride photos. (Bike photos share the /bikes/ path with
+# A week's cache for the place photos in /photos. (Bike photos share the /bikes/ path with
 # the bike pages, so they keep Netlify's default revalidating cache.)
 [[headers]]
-  for = "/rides/*"
+  for = "/photos/*"
   [headers.values]
     Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
 

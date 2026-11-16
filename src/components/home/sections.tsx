@@ -2,7 +2,9 @@ import { BookingConsole } from "../booking-console";
 import { HoursList, OpenBadge } from "../open-status";
 import { ButtonLink, SectionHead, Stars, WhatsAppIcon } from "../ui";
 import { business, fullAddress, telHref, whatsappHref } from "@/lib/site";
-import { faqs, reviews, steps } from "@/lib/content";
+import Link from "next/link";
+import { faqs, homeFaqs, reviews, steps } from "@/lib/content";
+import { JsonLd, faqListSchema } from "@/lib/schema";
 
 /* ─────────────── Booking: the four steps beside the console ─────────────── */
 export function BookSection() {
@@ -69,6 +71,40 @@ export function Reviews() {
   );
 }
 
+/* ─────────────── Questions, open on the page (search and AI read them) ─────────────── */
+export function HomeFaq() {
+  return (
+    <section id="questions" aria-labelledby="hfaq-title" className="section-y bg-kerb">
+      <JsonLd data={faqListSchema(homeFaqs)} />
+      <div className="wrap container-x grid gap-12 lg:grid-cols-12 lg:gap-x-6">
+        <div className="lg:col-span-6">
+          <h2 id="hfaq-title" className="t-h2 max-w-[14ch]">
+            Questions before you rent
+          </h2>
+          <Link href="/faq" className="link-line mt-6 inline-flex min-h-11 items-center font-medium">
+            More questions and answers
+          </Link>
+        </div>
+        <dl className="border-t border-ink lg:col-span-6">
+          {homeFaqs.map((f) => (
+            <div key={f.q} className="border-b border-line py-6">
+              <dt className="text-[1.125rem] font-medium">{f.q}</dt>
+              <dd className="mt-2 text-gravel">{f.a}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+  );
+}
+
+const distances = [
+  { place: "Kakatiya University", km: 3.4, href: "/bike-rental-hanamkonda" },
+  { place: "NIT Warangal", km: 5.7, href: "/bike-rental-near-nit-warangal" },
+  { place: "Kazipet Junction", km: 7.7, href: "/bike-rental-kazipet" },
+  { place: "Warangal railway station", km: 7.9, href: "/bike-rental-near-warangal-railway-station" },
+];
+
 /* ─────────────── Visit: address, hours, the map ─────────────── */
 export function VisitSection({ headingLevel = 2 }: { headingLevel?: 1 | 2 }) {
   const H = headingLevel === 1 ? "h1" : "h2";
@@ -101,6 +137,19 @@ export function VisitSection({ headingLevel = 2 }: { headingLevel?: 1 | 2 }) {
               </ButtonLink>
             </div>
             <HoursList hours={business.hours} />
+          </div>
+          <div className="mt-8">
+            <p className="t-label text-gravel">By road to the counter</p>
+            <ul className="mt-2 border-t border-line">
+              {distances.map((d) => (
+                <li key={d.place}>
+                  <Link href={d.href} className="flex min-h-11 items-center justify-between gap-4 border-b border-line">
+                    <span className="link-draw">From {d.place}</span>
+                    <span className="tabular-nums text-gravel">{d.km} km</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
         <div className="relative min-h-[360px] overflow-hidden bg-kerb lg:col-span-6">

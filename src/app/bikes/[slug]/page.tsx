@@ -21,8 +21,8 @@ export async function generateMetadata({ params }: PageProps<"/bikes/[slug]">): 
   const { slug } = await params;
   const bike = getBike(slug);
   if (!bike) return {};
-  const title = `${bikeLabel(bike)} on Rent in Hanamkonda, Warangal: ${inr(bike.pricePerDay)}/day`;
-  const description = `Rent the ${bikeLabel(bike)} in Hanamkonda & Warangal for ${inr(bike.pricePerDay)}/day with ${bike.kmPerDay} km/day included. ${bike.highlight} Book on WhatsApp in minutes.`;
+  const title = `${bikeLabel(bike)} on Rent in Warangal, ${inr(bike.pricePerDay)}/day`;
+  const description = `Rent the ${bikeLabel(bike)} in Hanamkonda & Warangal for ${inr(bike.pricePerDay)}/day with ${bike.kmPerDay} km/day included. Licence + Aadhaar, book on WhatsApp.`;
   return {
     title,
     description,

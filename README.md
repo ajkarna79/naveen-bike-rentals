@@ -25,7 +25,16 @@ In Telangana a self-drive rental bike carries a black number plate with yellow l
 
 Type: Work Sans for everything, Barlow Condensed (a face drawn from licence plates and road signs) only on plates. The `.plate` utility in `globals.css` makes any price or name into a rental plate. Motion is kept to the hero's one entrance on load, hover feedback, the rate board's preview swap and the rides story that plays as you scroll (it rests as a plain grid with reduced motion).
 
-The ride photographs in `public/rides/` are Creative Commons photos from Wikimedia Commons, credited on `/credits`. Replace them with your own riders' photos whenever you like (keep the credit list in `src/lib/content.ts` in sync).
+The ride photographs in `public/photos/` are Creative Commons photos from Wikimedia Commons, credited on `/credits`. Replace them with your own riders' photos whenever you like (keep the credit list in `src/lib/content.ts` in sync).
+
+## SEO and AI search
+
+- Landing pages for each search: `src/lib/landings.ts` (areas: Hanamkonda, Warangal, Kazipet, NIT Warangal, Warangal station; types: Royal Enfield, scooty). Add one there plus a 6-line `src/app/<slug>/page.tsx` like the others.
+- Ride guides: `/rides/<slug>`, generated from `rides` in `src/lib/content.ts`.
+- `/llms.txt` (fact sheet for AI assistants), `robots.txt` (AI crawlers allowed), `sitemap.xml` with images, structured data in `src/lib/schema.tsx`, all built from the same data.
+- After a deploy: `npm run indexnow -- https://your-domain` to tell Bing (and ChatGPT search, Copilot) about changes.
+- Optional Netlify env vars: `GOOGLE_SITE_VERIFICATION`, `BING_SITE_VERIFICATION` (meta-tag verification codes).
+- **What the owner needs to do off the site** (Google Business Profile, reviews, Search Console, listings): see `docs/SEO-PLAYBOOK.md`.
 
 ## Where to edit things
 
