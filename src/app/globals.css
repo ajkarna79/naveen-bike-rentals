@@ -1,0 +1,194 @@
+@import "tailwindcss";
+
+/* ───────────────────────── Design tokens ─────────────────────────
+   "Rental plate". In Telangana a self-drive rental bike carries a black
+   plate with yellow letters; Naveen's own posters use the same yellow on
+   black. The page is the roadside: a flat stone ground, tarmac ink, and
+   that plate as the one loud thing (prices, the mark, the name at the end).
+   Yellow is only ever letters on black, never text on the light ground. */
+@theme {
+  --color-ground: #eeeeeb; /* stone: the page */
+  --color-kerb: #e1e1dd; /* one step off the ground: panels, goods */
+  --color-ink: #1c1d1f; /* tarmac: text, buttons, the plate */
+  --color-gravel: #464747; /* muted text: 8:1 on ground, 7.2:1 on kerb */
+  --color-plate: #ffc531; /* rental-plate yellow, from the owner's posters */
+  --color-line: rgb(28 29 31 / 0.14); /* hairlines */
+  --color-open: #17633d; /* open-now dot and text, 7:1 on ground */
+  --color-wa: #1fa855; /* WhatsApp glyph only */
+
+  --font-sans: var(--font-work), ui-sans-serif, system-ui, sans-serif;
+  --font-plate: var(--font-barlow), "Arial Narrow", ui-sans-serif, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ───────────────────────── Base ───────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 84px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-ground text-ink font-sans antialiased;
+    font-size: 1.0625rem; /* 17px */
+    line-height: 1.55;
+    font-variant-numeric: lining-nums;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-plate);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  .on-ink :focus-visible {
+    outline-color: var(--color-plate);
+  }
+  h1, h2, h3, h4 {
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+  a, button, summary, label[for], select { cursor: pointer; }
+}
+
+/* ───────────────────────── Type scale ─────────────────────────
+   A classic scale (16 · 20 · 24 · 36 · 56 · 88) with fluid steps for the
+   two display sizes. One face, Work Sans, carries everything but the plate. */
+@utility t-h1 {
+  font-size: clamp(2.6rem, 6.4vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  font-weight: 400;
+}
+@utility t-h2 {
+  font-size: clamp(2.1rem, 4vw, 3.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  font-weight: 400;
+}
+@utility t-h3 {
+  font-size: 1.5rem;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  font-weight: 500;
+}
+@utility t-lead {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+@utility t-label {
+  font-size: 0.8125rem;
+  line-height: 1.3;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* ───────────────────────── Layout ───────────────────────── */
+@utility container-x {
+  width: min(100% - 2.5rem, 1240px);
+  margin-inline: auto;
+  @media (width >= 48rem) {
+    width: min(100% - 4rem, 1240px);
+  }
+}
+
+@utility section-y {
+  padding-block: 5.5rem;
+  @media (width >= 64rem) {
+    padding-block: 8rem;
+  }
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+/* ───────────────────────── The rental plate ─────────────────────────
+   Black plate, yellow letters, a hairline inner border like the pressed
+   rim of a real plate. Used for prices, the mark and the closing name. */
+@utility plate {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  font-family: var(--font-plate);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-plate);
+  background: var(--color-ink);
+  border-radius: 0.3em;
+  box-shadow: inset 0 0 0 0.12em var(--color-ink), inset 0 0 0 0.17em rgb(255 197 49 / 0.55);
+  padding: 0.42em 0.6em 0.38em;
+}
+
+/* Underline that draws in on hover/focus. */
+@utility link-draw {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1.5px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 300ms var(--ease-out-quart);
+  &:hover, &:focus-visible { background-size: 100% 1.5px; }
+}
+
+/* Always-underlined text link whose line thickens on hover. */
+@utility link-line {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  transition: text-decoration-thickness 200ms ease;
+  &:hover { text-decoration-thickness: 2px; }
+}
+
+/* A photograph that zooms a little inside its frame when its link is hovered. */
+@utility zoom-frame {
+  overflow: hidden;
+  & img { transition: transform 600ms var(--ease-out-quart); }
+}
+
+/* Hero entrance: one orchestrated moment on load, nothing else enters. */
+@keyframes enter-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes enter-roll {
+  from { opacity: 0; transform: translateX(56px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes plate-drop {
+  from { opacity: 0; transform: translateY(-14px) rotate(-2deg); }
+  60% { opacity: 1; }
+  to { opacity: 1; transform: none; }
+}
+@utility enter {
+  animation: enter-up 800ms var(--ease-out-quart) both;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+@utility enter-roll {
+  animation: enter-roll 1100ms var(--ease-out-expo) 150ms both;
+}
+@utility enter-plate {
+  animation: plate-drop 700ms var(--ease-out-quart) 750ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
