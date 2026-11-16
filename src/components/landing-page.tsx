@@ -99,7 +99,7 @@ export function LandingPage({ slug }: { slug: string }) {
             id="picks-title"
             title={l.category ? `The ${list.length} to choose from` : "Good bikes to start with"}
             side="Every price is for 24 hours and includes the kilometres shown. Fuel is extra."
-            link={{ href: "/bikes", label: "All 14 bikes" }}
+            link={l.category ? { href: `/bikes?type=${l.category}`, label: l.category === "scooter" ? "Compare the scooties" : "Compare the Royal Enfields" } : { href: "/bikes", label: "All 14 bikes" }}
           />
           <div className="mt-12 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             {picks.slice(0, l.category === "scooter" ? 4 : 3).map((b) => (

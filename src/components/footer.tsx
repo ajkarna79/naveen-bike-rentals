@@ -60,11 +60,14 @@ export function Footer() {
 
         <FooterCol title="Pages">
           <FooterLink href="/pricing">Prices and calculator</FooterLink>
-          <FooterLink href="/#how-it-works">How booking works</FooterLink>
+          <FooterLink href="/how-to-book">How to book</FooterLink>
           <FooterLink href="/rides">Rides from Hanamkonda</FooterLink>
+          <FooterLink href="/blog">Guides</FooterLink>
+          <FooterLink href="/about">About us</FooterLink>
           <FooterLink href="/faq">Questions</FooterLink>
           <FooterLink href="/contact">Contact</FooterLink>
           <FooterLink href="/terms">Rental terms</FooterLink>
+          <FooterLink href="/privacy-policy">Privacy policy</FooterLink>
         </FooterCol>
       </div>
 
@@ -72,6 +75,11 @@ export function Footer() {
         <p>
           © 2026 {business.name}, Hanamkonda. Ride with a helmet.
         </p>
+        <ul className="flex flex-wrap gap-x-6 gap-y-1">
+          <li><Link href="/rental-guide" className="link-draw inline-flex min-h-11 items-center">Rental guide</Link></li>
+          <li><Link href="/cancellation-policy" className="link-draw inline-flex min-h-11 items-center">Cancellation</Link></li>
+          <li><Link href="/refund-policy" className="link-draw inline-flex min-h-11 items-center">Deposit and refunds</Link></li>
+        </ul>
         <p>
           Place photographs from Wikimedia Commons contributors,{" "}
           <Link href="/credits" className="link-line">

@@ -7,11 +7,14 @@ export function PageHero({
   intro,
   crumbs,
   children,
+  compact = false,
 }: {
   title: ReactNode;
   intro?: ReactNode;
   crumbs: { name: string; href?: string }[];
   children?: ReactNode;
+  /** Smaller title for long headlines (blog posts). */
+  compact?: boolean;
 }) {
   return (
     <section className="pb-12 pt-[120px] sm:pb-16 sm:pt-[148px]">
@@ -34,7 +37,7 @@ export function PageHero({
             ))}
           </ol>
         </nav>
-        <h1 className="t-h1 max-w-[16ch]">{title}</h1>
+        <h1 className={compact ? "t-h2 max-w-[24ch]" : "t-h1 max-w-[16ch]"}>{title}</h1>
         {intro && <p className="t-lead mt-6 max-w-[52ch] text-gravel">{intro}</p>}
         {children}
       </div>

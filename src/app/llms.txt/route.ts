@@ -2,7 +2,9 @@ import { SITE_URL, business, conditions, fullAddress } from "@/lib/site";
 import { bikes, bikeLabel, categories, inr } from "@/lib/fleet";
 import { faqs, rides } from "@/lib/content";
 import { landings } from "@/lib/landings";
+import { posts } from "@/lib/posts";
 import { fmt12 } from "@/lib/hours";
+import { cancellation, deductions, lateReturn } from "@/lib/policies";
 
 /**
  * /llms.txt: a plain-text fact sheet for AI assistants and AI search
@@ -41,6 +43,13 @@ export function GET() {
     "",
     ...conditions.map((c) => `- ${c}`),
     "",
+    "## Late returns, cancellation and deposit",
+    "",
+    `- Late return without an approved extension: normal rent for the extra time plus one penalty (not cumulative): ${lateReturn.bands.map((b) => `${b.delay}: ${b.penalty}`).join("; ")}. Approved extensions: normal rent only.`,
+    `- Cancellation (only matters when an advance was paid; most bookings need none): ${cancellation.map((c) => `${c.when}: ${c.refund}`).join("; ")}.`,
+    `- Deposit: refundable, amount told before booking, refunded in cash or UPI after a 5 to 10 minute return check. Deducted only for: ${deductions.filter((d) => d.charged).map((d) => d.item.toLowerCase()).join("; ")}. Never for normal wear or damage noted at pickup.`,
+    `- Details: ${SITE_URL}/rental-guide, ${SITE_URL}/cancellation-policy, ${SITE_URL}/refund-policy`,
+    "",
     "## Rides from Hanamkonda",
     "",
     ...rides.map((r) => `- [${r.name}](${SITE_URL}/rides/${r.slug}): about ${r.km} km by road, ${r.time}. Best on ${r.bike}.`),
@@ -51,9 +60,16 @@ export function GET() {
     `- [All bikes](${SITE_URL}/bikes)`,
     `- [Prices and calculator](${SITE_URL}/pricing)`,
     ...landings.map((l) => `- [${l.h1}](${SITE_URL}/${l.slug}): ${l.description}`),
+    `- [How to book](${SITE_URL}/how-to-book): the booking steps, what to bring, pickup and return`,
+    `- [About us](${SITE_URL}/about)`,
+    ...posts.map((p) => `- [${p.title}](${SITE_URL}/blog/${p.slug}): ${p.description}`),
     `- [Questions](${SITE_URL}/faq)`,
     `- [Contact and directions](${SITE_URL}/contact)`,
     `- [Rental terms](${SITE_URL}/terms)`,
+    `- [Rental guide and late-return charges](${SITE_URL}/rental-guide)`,
+    `- [Cancellation policy](${SITE_URL}/cancellation-policy)`,
+    `- [Deposit and refund policy](${SITE_URL}/refund-policy)`,
+    `- [Privacy policy](${SITE_URL}/privacy-policy)`,
     "",
     "## Common questions",
     "",

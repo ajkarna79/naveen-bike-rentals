@@ -1,16 +1,46 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 import clsx from "clsx";
 import { ChevronDown } from "lucide-react";
 import { bikes as allBikes, categories, type CategoryId } from "@/lib/fleet";
 import { BikeCard } from "./bike-card";
 
 type Filter = "all" | CategoryId;
+const isFilter = (v: string | null): v is Filter => v === "all" || categories.some((c) => c.id === v);
+
+/**
+ * The fleet explorer driven by the address: /bikes?type=scooter opens on
+ * scooties, and choosing a filter updates the address so it can be shared.
+ * Wrap it in <Suspense> with a plain <FleetExplorer /> as the fallback.
+ */
+export function FleetExplorerFromUrl(props: { limit?: number; showSort?: boolean }) {
+  const params = useSearchParams();
+  const pathname = usePathname();
+  const t = params.get("type");
+  const filter: Filter = isFilter(t) ? t : "all";
+  const onFilterChange = (f: Filter) => {
+    window.history.replaceState(null, "", f === "all" ? pathname : `${pathname}?type=${f}`);
+  };
+  return <FleetExplorer {...props} filter={filter} onFilterChange={onFilterChange} />;
+}
 type Sort = "price-asc" | "price-desc" | "km-desc";
 
-export function FleetExplorer({ limit, showSort = true }: { limit?: number; showSort?: boolean }) {
-  const [filter, setFilter] = useState<Filter>("all");
+export function FleetExplorer({
+  limit,
+  showSort = true,
+  filter: controlled,
+  onFilterChange,
+}: {
+  limit?: number;
+  showSort?: boolean;
+  filter?: Filter;
+  onFilterChange?: (f: Filter) => void;
+}) {
+  const [own, setOwn] = useState<Filter>("all");
+  const filter = controlled ?? own;
+  const setFilter = (f: Filter) => (onFilterChange ? onFilterChange(f) : setOwn(f));
   const [sort, setSort] = useState<Sort>("price-asc");
 
   const list = useMemo(() => {

@@ -1,3 +1,5 @@
+import { policyFaqs } from "./policies";
+
 /** Real Google reviews of Naveen Bike Rentals (shortened, names abbreviated). */
 export const reviews = [
   {
@@ -85,7 +87,7 @@ export const faqs = [
   },
   {
     q: "How much is the security deposit?",
-    a: "A refundable security deposit is collected at pickup. The amount depends on the bike and rental length, and we tell you on WhatsApp before you come. It's refunded when the bike is returned in the same condition.",
+    a: "A refundable security deposit is collected at pickup. The amount depends on the bike and rental length, and we tell you on WhatsApp before you come. It is refunded in cash or by UPI after a 5 to 10 minute check when you return the bike; any deduction is explained item by item first.",
   },
   {
     q: "Is fuel included?",
@@ -119,6 +121,7 @@ export const faqs = [
     q: "What if the bike breaks down?",
     a: "Call us right away. We'll guide you over the phone or arrange help. Don't attempt major repairs yourself.",
   },
+  ...policyFaqs,
 ];
 
 /**

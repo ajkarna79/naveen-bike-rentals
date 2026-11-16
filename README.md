@@ -85,5 +85,8 @@ Every push to `main` deploys automatically; pull requests get preview links.
 - [ ] **Deposit & extra-km charge**: the site says "refundable deposit at pickup" and "extra km as per policy". Add the exact amounts if you want them public.
 - [ ] **Instagram / Facebook**: add the handles in `site.ts` → `social`.
 - [ ] **Own photos**: the bike images are manufacturer product shots (see `public/bikes/SOURCES.md`). Replacing them with photos of *your* bikes is better for trust and avoids using brand assets. Good shots to add: the storefront, the fleet lined up, happy customers (with permission).
+- [ ] **About page**: add a line or two about who runs the counter and since when (`src/app/about/page.tsx`, "What we do").
+- [ ] **Privacy policy**: check the "At the counter" section of `/privacy-policy` matches what you keep from customers' IDs.
+- [ ] **Cancellation, refund, late-return rules**: adopted from the local standard (same rules as Garuda Bike Rentals) in `src/lib/policies.ts`; check they match how you work. Deposit amounts and the extra-km rate are not published yet.
 - [ ] **Terms**: review `/terms`. It summarises the conditions from your posters plus standard practice.
 - [ ] **Reviews**: the review quotes are real Google reviews (shortened, names abbreviated). Keep them current.

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
-import { FleetExplorer } from "@/components/fleet-explorer";
+import { Suspense } from "react";
+import { FleetExplorer, FleetExplorerFromUrl } from "@/components/fleet-explorer";
 import { FinalCta } from "@/components/home/sections";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { bikes, inr, minPrice } from "@/lib/fleet";
@@ -22,7 +23,9 @@ export default function BikesPage() {
       />
       <section className="pb-24 lg:pb-32">
         <div className="wrap container-x">
-          <FleetExplorer />
+          <Suspense fallback={<FleetExplorer />}>
+            <FleetExplorerFromUrl />
+          </Suspense>
           <p className="mt-12 max-w-[70ch] text-gravel">
             The pictures are the makers&apos; photographs of each model; your bike&apos;s colour may differ. Fuel is not
             included and a refundable deposit is taken at pickup.

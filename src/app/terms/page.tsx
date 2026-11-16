@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
-import { business, telHref } from "@/lib/site";
+import { PolicyFooter } from "@/components/policy";
+import { business } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Rental Terms",
@@ -24,6 +25,7 @@ const sections = [
     h: "Booking and confirmation",
     p: [
       "Requests sent through this website or WhatsApp are enquiries. A booking is confirmed only after we confirm availability and the rider completes verification at pickup.",
+      "Most bookings need no advance. Where we ask for an advance to hold a bike, it is refunded in full if you cancel 24 hours or more before pickup, and not refunded if you cancel later or do not turn up. The cancellation policy has the details.",
       "Prices shown are per 24-hour day. Long-term (weekly or monthly) rates are quoted separately.",
     ],
   },
@@ -31,7 +33,7 @@ const sections = [
     h: "Security deposit",
     p: [
       "A refundable security deposit is collected at pickup. The amount depends on the vehicle and rental duration and is told to you before you come.",
-      "The deposit is refunded on return after the vehicle, helmet(s) and keys are checked. Applicable charges (damage, extra kilometres, late return, traffic fines) may be adjusted from it.",
+      "The deposit is refunded in cash or by UPI after the vehicle, helmet(s) and keys are checked with you. Any deduction (damage at repair cost, lost items at replacement cost, missing fuel, late-return charges, extra kilometres, traffic fines, or a cleaning charge for a very dirty bike) is explained item by item first. Normal wear and damage noted at pickup are never charged. The deposit and refund policy has the details.",
     ],
   },
   {
@@ -59,7 +61,7 @@ const sections = [
     h: "Returns and extensions",
     p: [
       "Return the vehicle on time at our pickup point. To extend, message us before your return time; extensions depend on availability.",
-      "Late returns without prior approval may be charged.",
+      "The first hour after the return time is free. After that, a late return without an approved extension is charged normal rent for the extra time plus one penalty: ₹100 for over 1 to 3 hours, ₹200 for over 3 to 6 hours, ₹300 for over 6 to 24 hours, and ₹500 for each day beyond 24 hours. Approved extensions are charged normal rent only. Ending a rental early does not refund the unused days unless the cause is ours (for example a breakdown we cannot fix within 4 hours).",
     ],
   },
 ];
@@ -98,13 +100,7 @@ export default function TermsPage() {
                 </div>
               </section>
             ))}
-            <p className="border-t border-line pt-8 text-gravel">
-              Questions about these terms? Call{" "}
-              <a href={telHref} className="link-line font-medium text-ink">
-                {business.phoneDisplay}
-              </a>
-              .
-            </p>
+            <PolicyFooter current="terms" />
           </div>
         </div>
       </section>
