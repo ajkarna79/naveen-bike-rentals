@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { OpenBadge } from "../open-status";
+import { RideAway } from "./ride-away";
 import { Arrow, ButtonLink, PricePlate, Stars, WhatsAppIcon } from "../ui";
 import { business, whatsappHref } from "@/lib/site";
 import { getBike, inr, minPrice } from "@/lib/fleet";
@@ -11,7 +12,8 @@ const step = (i: number) => ({ "--i": i }) as CSSProperties;
 /**
  * The hero says what is rented, where, and for how much, then shows the bike
  * people ask for most standing on the page itself. One entrance on load: the
- * words rise, the Classic rolls in, its plate drops into place.
+ * words rise, the Classic rolls in, its plate drops into place. Scrolling down,
+ * the Classic rides off to the right (RideAway) and the price plate stays.
  */
 export function Hero() {
   const classic = getBike("royal-enfield-classic-350")!;
@@ -63,15 +65,16 @@ export function Hero() {
           aria-label={`Royal Enfield Classic 350, ${inr(classic.pricePerDay)} a day, see the bike`}
         >
           <div className="enter-roll relative aspect-[16/10] w-full lg:aspect-[4/3]">
-            <div className="absolute inset-x-[14%] bottom-[11%] h-[5%] rounded-[50%] bg-ink/25 blur-xl" aria-hidden="true" />
-            <Image
-              src={classic.image!}
-              alt=""
-              fill
-              preload
-              sizes="(max-width: 1024px) 92vw, 620px"
-              className="object-contain mix-blend-multiply transition-transform duration-[600ms] ease-out-quart group-hover:scale-[1.02]"
-            />
+            <RideAway>
+              <Image
+                src={classic.image!}
+                alt=""
+                fill
+                preload
+                sizes="(max-width: 1024px) 92vw, 620px"
+                className="object-contain mix-blend-multiply transition-transform duration-[600ms] ease-out-quart group-hover:scale-[1.02]"
+              />
+            </RideAway>
           </div>
           <div className="enter-plate mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 lg:pl-[6%]">
             <PricePlate amount={inr(classic.pricePerDay)} className="text-[clamp(1.6rem,3vw,2.4rem)]" />
